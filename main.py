@@ -11,7 +11,7 @@ knowledge_dict = {
         "ola":"Ola, tudo bem?",
         "tudo bem?":"Sim, esta tudo bem",
         "sim, e com voce?":"Tudo bem.",
-        "sis, estou bem":"Que bom!",
+        "sim, estou bem":"Que bom!",
         "bom dia":"Oi, bom dia para você também!",
         "boa tarde":"Oi, boa tarde para você também!",
         "boa noite":"Oi, boa noite para você também!",
@@ -26,7 +26,7 @@ knowledge_dict = {
 def _get_answer(question: str) -> str:
     return knowledge_dict.get(question.lower())
 
-@app.get("/", tags=["Robô de fala"])
+@app.get("/", tags=["Robô de fala"], include_in_schema=False)
 def home():
     return {
         "resposta":"Bem vindo ao robô de fala! Para saber como usar minhas funções entre no link https://trabalho-iac.herokuapp.com/docs"
