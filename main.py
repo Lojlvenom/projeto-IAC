@@ -39,7 +39,7 @@ def knowledge():
         known_questions.append(k)
     
     return {
-        "perguntas_que_sei":known_questions
+        "coisas_que_sei":known_questions
     }
 
 
