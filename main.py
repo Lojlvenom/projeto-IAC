@@ -1,13 +1,12 @@
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(title="Trabalho IAC")
 
 class Mensagem(BaseModel):
     message: str
 
-def _get_answer(question: str) -> str:
-    return {
+knowledge_dict = {
         " ":" Me pergunte algo",
         "ola":"Ola, tudo bem?",
         "tudo bem?":"Sim, esta tudo bem",
@@ -21,10 +20,30 @@ def _get_answer(question: str) -> str:
         "como voce esta?":"Estou bem, e voce?",
         "voce gosta musica?":"Sim, minha cantora favoria e Camila Cabello"
         
-    }.get(question.lower())
+    }
 
 
-@app.post("/ask_something")
+def _get_answer(question: str) -> str:
+    return knowledge_dict.get(question.lower())
+
+@app.get("/", tags=["Robô de fala"])
+def home():
+    return {
+        "resposta":"Bem vindo ao robô de fala! Para saber como usar minhas funções entre no link https://trabalho-iac.herokuapp.com/docs"
+    }
+
+@app.get("/conhecimento", tags=["Robô de fala"])
+def knowledge():
+    known_questions = [] 
+    for k in knowledge_dict:
+        known_questions.append(k)
+    
+    return {
+        "perguntas_que_sei":known_questions
+    }
+
+
+@app.post("/ask_something", tags=["Robô de fala"])
 def ask(msg:Mensagem):
     asw = _get_answer(msg.message)
 
