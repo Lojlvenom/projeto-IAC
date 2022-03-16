@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 
-app = FastAPI(title="Trabalho IAC")
+app = FastAPI(title="Trabalho IAC", openapi_url = None)
 
 class Mensagem(BaseModel):
     message: str
